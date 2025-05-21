@@ -1,5 +1,5 @@
 import time
-import pygame 
+import pygame  
 from settings import GRID_WIDTH, GRID_HEIGHT
 from world import World
 
@@ -19,17 +19,18 @@ def main():
     clock = pygame.time.Clock()
     FPS = 60
     world.print_grid()
-    world.slime_random_tile()
+    
 
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                running = False
         # Game logic
         
-        time.sleep(2)
-        world.slime_random_tile()
+        time.sleep(.5)
+        world.update_all()
         
 
         # Drawing
