@@ -9,6 +9,7 @@ class Slime:
         self.position = slime_position
         self.canidates = self.get_adjacent_positions()
         self.landlocked = False
+        ## Power, growth speed
 
     def get_adjacent_positions(self):
         x, y = self.position
@@ -25,10 +26,6 @@ class Slime:
         ]
 
         return valid_candiates
-
-    def check_if_neighbors_are_occupied(self):
-        for canidate in self.canidates:
-            x, y = canidate
 
     def get_random_adjacent_tile(self):
         return random.choice(self.canidates) if self.canidates else None
