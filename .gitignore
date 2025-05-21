@@ -1,0 +1,50 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.eggs/
+dist/
+build/
+sdist/
+*.egg-info
+*.whl
+
+# Environments
+.venv/
+venv/
+env/
+ENV/
+*.env
+
+# PyInstaller
+#  Usually these files are written into a _MEIPASS folder, but if the user is
+#  running a script from a temporary folder the folder is named _MEI*
+_MEI/
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.log
+*.rpt
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.db
+*.sqlite3
+*/migrations
+
+# Editor-related
+.vscode/
+*.swp
+*~
+tmp/

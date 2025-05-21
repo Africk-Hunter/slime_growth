@@ -1,1 +1,44 @@
+import time
+import pygame 
+from settings import GRID_WIDTH, GRID_HEIGHT
+from world import World
 
+def main():
+    pygame.init()
+    pygame.mixer.quit()
+
+    world = World(GRID_WIDTH, GRID_HEIGHT)
+
+    # Set up the display
+    screen_width = 800
+    screen_height = 600
+    screen = pygame.display.set_mode((screen_width, screen_height))
+    pygame.display.set_caption("Slimespread")
+
+    running = True
+    clock = pygame.time.Clock()
+    FPS = 60
+    world.print_grid()
+    world.slime_random_tile()
+
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+        # Game logic
+        
+        time.sleep(2)
+        world.slime_random_tile()
+        
+
+        # Drawing
+        """ screen.fill((0, 0, 0))   """
+        # Draw your game elements here
+
+        """ pygame.display.flip() """
+        clock.tick(FPS)
+    pass
+
+if __name__ == "__main__":
+    main()
