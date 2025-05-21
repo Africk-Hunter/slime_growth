@@ -29,7 +29,6 @@ class Slime:
     def check_if_neighbors_are_occupied(self):
         for canidate in self.canidates:
             x, y = canidate
-            if 
 
     def get_random_adjacent_tile(self):
         return random.choice(self.canidates) if self.canidates else None

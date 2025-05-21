@@ -26,11 +26,14 @@ class SlimeColony():
         return new_slime
 
     def call_update(self):
-        current_slimes = self.slime_list[:]
+        current_slimes = self.slime_list.copy()
         for slime in current_slimes:
-            new_slime_position = slime.spread_to_adjacent_tile()
-            if new_slime_position:
-                x, y = new_slime_position
-                new_slime = self.create_new_slime(new_slime_position)
-                self.world_grid[y][x].slime_tile(new_slime)
+            new_pos = slime.spread_to_adjacent_tile()
+            if new_pos:
+                x, y = new_pos
+                if not self.world_grid[y][x].has_slime:
+                    new_slime = Slime(self.id, self.identifier, new_pos)
+                    self.slime_list.append(new_slime)
+                    self.world_grid[y][x].slime_tile(new_slime)
+
 
