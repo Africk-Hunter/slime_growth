@@ -7,15 +7,13 @@ class SlimeColony():
     def __init__(self, id, world_grid):
         self.id = id
         self.slime_list = []
-        self.identifier_raw = random.choice(['x', 'o', '*', '#', '%', '+'])  # Keep raw version
+        self.identifier_raw = random.choice(['x', 'o', '*', '#', '%', '+'])
         color = random.choice(COLOR_CODES)
-        self.identifier = f"{color}{self.identifier_raw}{RESET_CODE}"  # Colored version
+        self.identifier = f"{color}{self.identifier_raw}{RESET_CODE}" 
         self.world_grid = world_grid
-
     
     def add_to_list_and_grid(self, new_slime, position):
         x, y = position        
-
         self.world_grid[y][x].slime_tile(new_slime)
         self.slime_list.append(new_slime)
 
@@ -54,7 +52,7 @@ class SlimeColony():
                 self.world_grid[y][x].slime = attacking_slime
                 defending_slime.marked_for_deletion = True
 
-    def call_update(self):
+    def call_update(self, time):
         current_slimes = self.slime_list.copy()
         for slime in current_slimes:
 
@@ -62,7 +60,7 @@ class SlimeColony():
                 self.slime_list.remove(slime)
                 continue
 
-            new_pos = slime.spread_to_adjacent_tile()
+            new_pos = slime.update(time)
             if not new_pos:
                 continue
 

@@ -20,6 +20,7 @@ def main():
     FPS = 60
     world.print_grid()
     
+    current_time = 0
 
     while running:
         for event in pygame.event.get():
@@ -29,9 +30,10 @@ def main():
                 running = False
         # Game logic
         
-        time.sleep(.5)
-        world.update_all()
-        
+        time.sleep(.1)
+        world.update_all(current_time)
+        current_time += 1
+        print(current_time)
 
         # Drawing
         """ screen.fill((0, 0, 0))   """

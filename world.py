@@ -19,8 +19,8 @@ class World:
         self.SM.call_initialization()
 
                     
-    def update_all(self):
-        self.SM.call_update()
+    def update_all(self, time):
+        self.SM.call_update(time)
         self.cls()
         self.print_grid()
     

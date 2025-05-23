@@ -10,9 +10,8 @@ class Slime:
         self.canidates = self.get_adjacent_positions()
         self.landlocked = False
         self.power = random.uniform(1, 10)
-        self.growth_speed = random.uniform(1, 10)
+        self.growth_speed = random.randint(2, 20)
         self.marked_for_deletion = False
-        ## Power, growth speed
 
     def get_adjacent_positions(self):
         x, y = self.position
@@ -33,8 +32,8 @@ class Slime:
     def get_random_adjacent_tile(self):
         return random.choice(self.canidates) if self.canidates else None
 
-    def spread_to_adjacent_tile(self):
-        return self.get_random_adjacent_tile()
+    def update(self, time):
+        if time % self.growth_speed == 0:
+            return self.get_random_adjacent_tile()
 
-    def update(self):
-        self.spread_to_adjacent_tile()
+        

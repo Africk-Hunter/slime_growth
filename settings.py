@@ -9,6 +9,7 @@ COLOR_CODES = [
     '\033[95m',  # Magenta
     '\033[96m',  # Cyan
 ]
+
 RESET_CODE = '\033[0m'
 
 MAX_SLIMES = 5

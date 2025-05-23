@@ -23,11 +23,11 @@ class SlimeManager():
         for colony in self.colony_list:
             colony.create_initial_slime()
 
-    def call_update(self):
+    def call_update(self, time):
         activity = False
         for colony in self.colony_list:
             before = len(colony.slime_list)
-            colony.call_update()
+            colony.call_update(time)
             after = len(colony.slime_list)
             if before != after:
                 activity = True
