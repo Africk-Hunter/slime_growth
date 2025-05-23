@@ -44,23 +44,31 @@ class SlimeColony():
         return self.world_grid[y][x].slime
 
     def handle_slime_battle(self, attacking_slime, defending_slime):
-        power_differential = attacking_slime.power - defending_slime
+        power_differential = attacking_slime.power - defending_slime.power 
         if power_differential > 0:
-            if random.uniform() <= power_differential:
+            
+            if random.uniform(0, 1) <= power_differential:
+                
                 # Replace tile
-
-
+                x, y = defending_slime.position
+                self.world_grid[y][x].slime = attacking_slime
+                defending_slime.marked_for_deletion = True
 
     def call_update(self):
         current_slimes = self.slime_list.copy()
         for slime in current_slimes:
+
+            if slime.marked_for_deletion == True:
+                self.slime_list.remove(slime)
+                continue
+
             new_pos = slime.spread_to_adjacent_tile()
             if not new_pos:
                 continue
 
             if self.does_tile_have_slime_already(new_pos):
                 if self.is_slime_from_opposing_colony(new_pos, slime):
-                    
+                    self.handle_slime_battle(self.get_slime_at_position(new_pos), slime)
                     # Initiate slime battle mechanic based on opposing slime stats
                     pass
                 continue

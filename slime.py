@@ -11,6 +11,7 @@ class Slime:
         self.landlocked = False
         self.power = random.uniform(1, 10)
         self.growth_speed = random.uniform(1, 10)
+        self.marked_for_deletion = False
         ## Power, growth speed
 
     def get_adjacent_positions(self):
