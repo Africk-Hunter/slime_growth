@@ -9,6 +9,8 @@ class Slime:
         self.position = slime_position
         self.canidates = self.get_adjacent_positions()
         self.landlocked = False
+        self.power = random.uniform(1, 10)
+        self.growth_speed = random.uniform(1, 10)
         ## Power, growth speed
 
     def get_adjacent_positions(self):
