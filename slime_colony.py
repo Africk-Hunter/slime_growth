@@ -1,14 +1,17 @@
 from slime import Slime
 import random
-from settings import GRID_HEIGHT, GRID_WIDTH
+from settings import GRID_HEIGHT, GRID_WIDTH, COLOR_CODES, RESET_CODE
 
 class SlimeColony():
 
     def __init__(self, id, world_grid):
         self.id = id
         self.slime_list = []
-        self.identifier = random.choice(['x', 'o', '*', '#', '%', '+'])
+        self.identifier_raw = random.choice(['x', 'o', '*', '#', '%', '+'])  # Keep raw version
+        color = random.choice(COLOR_CODES)
+        self.identifier = f"{color}{self.identifier_raw}{RESET_CODE}"  # Colored version
         self.world_grid = world_grid
+
     
     def add_to_list_and_grid(self, new_slime, position):
         x, y = position        
@@ -46,10 +49,7 @@ class SlimeColony():
     def handle_slime_battle(self, attacking_slime, defending_slime):
         power_differential = attacking_slime.power - defending_slime.power 
         if power_differential > 0:
-            
             if random.uniform(0, 1) <= power_differential:
-                
-                # Replace tile
                 x, y = defending_slime.position
                 self.world_grid[y][x].slime = attacking_slime
                 defending_slime.marked_for_deletion = True
@@ -68,13 +68,10 @@ class SlimeColony():
 
             if self.does_tile_have_slime_already(new_pos):
                 if self.is_slime_from_opposing_colony(new_pos, slime):
-                    self.handle_slime_battle(self.get_slime_at_position(new_pos), slime)
-                    # Initiate slime battle mechanic based on opposing slime stats
+                    self.handle_slime_battle(slime, self.get_slime_at_position(new_pos))
                     pass
                 continue
-            
 
-            
             self.create_new_slime(new_pos)
 
 

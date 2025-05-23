@@ -34,9 +34,7 @@ class Slime:
         return random.choice(self.canidates) if self.canidates else None
 
     def spread_to_adjacent_tile(self):
-        if self.landlocked == False:
-            return self.get_random_adjacent_tile()
-        return None
+        return self.get_random_adjacent_tile()
 
     def update(self):
         self.spread_to_adjacent_tile()
