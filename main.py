@@ -33,7 +33,6 @@ def main():
         time.sleep(.1)
         world.update_all(current_time)
         current_time += 1
-        print(current_time)
 
         # Drawing
         """ screen.fill((0, 0, 0))   """
