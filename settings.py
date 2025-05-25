@@ -1,5 +1,5 @@
 GRID_WIDTH = 40
-GRID_HEIGHT = 35
+GRID_HEIGHT = 15
 
 COLOR_CODES = [
     '\033[91m',  # Red
