@@ -1,5 +1,6 @@
 from slime import Slime
 
+
 class Tile:
 
     def __init__(self, x_location, y_location):
@@ -13,4 +14,4 @@ class Tile:
         self.slime = slime
 
     def print_output(self):
-        return f'[{self.slime.color}]' if self.has_slime else '[ ]'
+        return f'[{self.slime.identifier}]' if self.has_slime else '[ ]'

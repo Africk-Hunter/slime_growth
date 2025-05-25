@@ -3,14 +3,13 @@ import pygame
 from settings import GRID_WIDTH, GRID_HEIGHT
 from world import World
 
+pygame.init()
+pygame.mixer.quit()
+
 
 def main():
-    pygame.init()
-    pygame.mixer.quit()
-
     world = World(GRID_WIDTH, GRID_HEIGHT)
 
-    # Set up the display
     screen_width = 800
     screen_height = 600
     screen = pygame.display.set_mode((screen_width, screen_height))
@@ -19,9 +18,9 @@ def main():
     running = True
     clock = pygame.time.Clock()
     FPS = 60
-    world.print_grid()
-
     current_time = 0
+
+    tile_size = min(screen_width // GRID_WIDTH, screen_height // GRID_HEIGHT)
 
     while running:
         for event in pygame.event.get():
@@ -29,23 +28,24 @@ def main():
                 running = False
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 running = False
-        # Game logic
 
-        time.sleep(.02)
+        time.sleep(0.02)
         winner = world.update_all(current_time)
-        print('winner: ', winner)
         current_time += 1
 
+        screen.fill((0, 200, 0))
+
+        world.render_grid(screen, tile_size)
+
+        pygame.display.flip()
+
+        clock.tick(FPS)
+
         if winner is not None:
-            print('Colony', winner, 'wins!')
+            print(f'Colony {winner} wins!')
             running = False
 
-        # Drawing
-        """ screen.fill((0, 0, 0))   """
-        # Draw your game elements here
-        """ pygame.display.flip() """
-        clock.tick(FPS)
-    pass
+    pygame.quit()
 
 
 if __name__ == "__main__":

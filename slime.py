@@ -4,9 +4,10 @@ from settings import GRID_HEIGHT, GRID_WIDTH
 
 class Slime:
 
-    def __init__(self, colony_id, colony_color, slime_position, world_grid,
-                 growth_speed, power):
+    def __init__(self, colony_id, identifier, colony_color, slime_position,
+                 world_grid, growth_speed, power):
         self.colony_id = colony_id
+        self.identifier = identifier
         self.color = colony_color
         self.position = slime_position
         self.canidates = self.get_adjacent_positions_on_map()
