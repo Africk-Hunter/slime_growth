@@ -1,7 +1,8 @@
 import time
-import pygame  
+import pygame
 from settings import GRID_WIDTH, GRID_HEIGHT
 from world import World
+
 
 def main():
     pygame.init()
@@ -19,7 +20,7 @@ def main():
     clock = pygame.time.Clock()
     FPS = 60
     world.print_grid()
-    
+
     current_time = 0
 
     while running:
@@ -29,18 +30,23 @@ def main():
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 running = False
         # Game logic
-        
-        time.sleep(.1)
-        world.update_all(current_time)
+
+        time.sleep(.02)
+        winner = world.update_all(current_time)
+        print('winner: ', winner)
         current_time += 1
+
+        if winner is not None:
+            print('Colony', winner, 'wins!')
+            running = False
 
         # Drawing
         """ screen.fill((0, 0, 0))   """
         # Draw your game elements here
-
         """ pygame.display.flip() """
         clock.tick(FPS)
     pass
+
 
 if __name__ == "__main__":
     main()

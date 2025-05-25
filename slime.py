@@ -5,13 +5,13 @@ from settings import GRID_HEIGHT, GRID_WIDTH
 class Slime:
 
     def __init__(self, colony_id, colony_color, slime_position, world_grid,
-                 growth_speed):
+                 growth_speed, power):
         self.colony_id = colony_id
         self.color = colony_color
         self.position = slime_position
         self.canidates = self.get_adjacent_positions_on_map()
-        self.power = random.uniform(1, 10)
-        self.growth_speed = random.randint(growth_speed - 1, growth_speed + 2)
+        self.power = random.uniform(power - 1, power + 1)
+        self.growth_speed = random.randint(growth_speed - 1, growth_speed + 1)
         self.marked_for_deletion = False
         self.world_grid = world_grid
 
@@ -40,14 +40,6 @@ class Slime:
     def get_slime_at_position(self, position):
         x, y = position
         return self.world_grid[y][x].slime
-
-    def handle_slime_battle(self, attacking_slime, defending_slime):
-        power_differential = attacking_slime.power - defending_slime.power
-        if power_differential > 0:
-            if random.uniform(0, 1) <= power_differential:
-                x, y = defending_slime.position
-                self.world_grid[y][x].slime = attacking_slime
-                defending_slime.marked_for_deletion = True
 
     def select_tile_to_grow_to(self):
         random.shuffle(self.canidates)

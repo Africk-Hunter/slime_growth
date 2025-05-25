@@ -1,6 +1,7 @@
 import random
 from slime_colony import SlimeColony
-from settings import MAX_SLIMES
+from settings import GRID_HEIGHT, GRID_WIDTH, MAX_SLIMES, MIN_SLIMES
+
 
 class SlimeManager():
 
@@ -15,7 +16,7 @@ class SlimeManager():
         self.colony_list.append(new_colony)
 
     def call_initialization(self):
-        colony_count = random.randint(2, MAX_SLIMES)
+        colony_count = random.randint(MIN_SLIMES, MAX_SLIMES)
 
         for colony in range(colony_count):
             self.create_new_colony()
@@ -24,13 +25,13 @@ class SlimeManager():
             colony.create_initial_slime()
 
     def call_update(self, time):
-        activity = False
+        winner = None
         for colony in self.colony_list:
-            before = len(colony.slime_list)
-            colony.call_update(time)
-            after = len(colony.slime_list)
-            if before != after:
-                activity = True
+            colony.call_update(time)  # Update the colony
+            length = len(colony.slime_list)
 
-        if not activity:
-            print("Simulation stalled: No slime expanded.")
+            # Check if the colony has filled the grid
+            if length == (GRID_HEIGHT * GRID_WIDTH):
+                winner = colony.id
+
+        return winner
