@@ -24,25 +24,23 @@ class World:
     def update_all(self, time):
         winner = self.SM.call_update(time)
         self.cls()
-        self.print_grid()
         return winner
 
-    def render_grid(self, screen, tile_size):
+    def render_grid(self, screen, tile_height, tile_width):
         for row in range(self.rows):
             for col in range(self.columns):
                 current_tile = self.grid[row][col]
-                self.draw_tile(screen, current_tile, tile_size)
+                self.draw_tile(screen, current_tile, tile_height, tile_width)
 
-    def draw_tile(self, screen, tile, tile_size):
+    def draw_tile(self, screen, tile, tile_height, tile_width):
 
         color = (0, 0, 0)
         if tile.has_slime:
             color = tile.slime.color
 
-        pygame.draw.rect(
-            screen, color,
-            (tile.x * tile_size, tile.y * tile_size, tile_size, tile_size))
-        pass
+        pygame.draw.rect(screen, color,
+                         (tile.x * tile_width, tile.y * tile_height,
+                          tile_width, tile_height))
 
     def print_grid(self):
         for row in self.grid:

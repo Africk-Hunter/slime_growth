@@ -32,6 +32,6 @@ class SlimeManager():
 
             # Check if the colony has filled the grid
             if length == (GRID_HEIGHT * GRID_WIDTH):
-                winner = colony.identifier
+                winner = colony.id
 
         return winner

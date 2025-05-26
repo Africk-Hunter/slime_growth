@@ -18,7 +18,10 @@ class SlimeColony():
         self.battler = SlimeBattleManager(self.world_grid)
 
     def increase_power_for_size(self):
-        self.power += .0003
+        self.power += (GRID_HEIGHT * GRID_WIDTH) * 0.0000001875
+
+        for slime in self.slime_list:
+            slime.power = self.power
 
     def add_to_list_and_grid(self, new_slime, position):
         x, y = position
