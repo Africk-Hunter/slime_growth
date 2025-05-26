@@ -9,7 +9,6 @@ font = pygame.font.Font(None, 36)
 
 
 def main():
-    world = World(GRID_WIDTH, GRID_HEIGHT)
 
     screen_width = 600
     screen_height = 600
@@ -20,6 +19,8 @@ def main():
     clock = pygame.time.Clock()
     FPS = 60
     current_time = 0
+
+    world = World(GRID_WIDTH, GRID_HEIGHT, screen)
 
     tile_width = screen_width / GRID_WIDTH
     tile_height = screen_height / GRID_HEIGHT
@@ -37,7 +38,7 @@ def main():
 
         screen.fill((0, 0, 0))
 
-        world.render_grid(screen, tile_width, tile_height)
+        world.RH.render_grid()
 
         clock.tick(FPS)
 
