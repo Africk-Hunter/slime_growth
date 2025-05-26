@@ -27,10 +27,9 @@ class SlimeManager():
     def call_update(self, time):
         winner = None
         for colony in self.colony_list:
-            colony.call_update(time)  # Update the colony
+            colony.call_update(time)
             length = len(colony.slime_list)
 
-            # Check if the colony has filled the grid
             if length == (GRID_HEIGHT * GRID_WIDTH):
                 winner = colony.id
 

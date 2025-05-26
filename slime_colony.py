@@ -20,8 +20,7 @@ class SlimeColony():
     def increase_power_for_size(self):
         self.power += (GRID_HEIGHT * GRID_WIDTH) * 0.0000001875
 
-        for slime in self.slime_list:
-            slime.power = self.power
+        self.refresh_slimes()
 
     def add_to_list_and_grid(self, new_slime, position):
         x, y = position
@@ -54,6 +53,25 @@ class SlimeColony():
         x, y = position
         return self.world_grid[y][x].slime
 
+    def refresh_slimes(self):
+        for slime in self.slime_list:
+            slime.power = random.uniform(self.power - 1, self.power + 1)
+            slime.growth_speed = round(
+                random.uniform(self.growth_speed - 1, self.growth_speed + 1))
+
+    def handle_fruit_collection(self, position):
+        x, y = position
+        fruit = self.world_grid[y][x].fruit
+        if fruit.type == 'power':
+            print('power from:', self.power, 'to', self.power * fruit.modifier)
+            self.power *= fruit.modifier
+        else:
+            print('growth from:', self.growth_speed, 'to',
+                  self.growth_speed / fruit.modifier)
+            self.growth_speed /= fruit.modifier
+        self.refresh_slimes()
+        self.world_grid[y][x].has_fruit = False
+
     def call_update(self, time):
         current_slimes = self.slime_list.copy()
         for slime in current_slimes:
@@ -66,12 +84,14 @@ class SlimeColony():
             if not new_pos:
                 continue
 
-            if new_tile_type == 'empty':
-                self.create_new_slime(new_pos)
-
-            elif new_tile_type == 'enemy':
-                defending_slime = self.get_slime_at_position(new_pos)
-                self.battler.handle_slime_battle(slime, defending_slime)
-
-                if defending_slime.marked_for_deletion:
+            match new_tile_type:
+                case 'fruit':
+                    self.handle_fruit_collection(new_pos)
+                case 'empty':
                     self.create_new_slime(new_pos)
+                case 'enemy':
+                    defending_slime = self.get_slime_at_position(new_pos)
+                    self.battler.handle_slime_battle(slime, defending_slime)
+
+                    if defending_slime.marked_for_deletion:
+                        self.create_new_slime(new_pos)

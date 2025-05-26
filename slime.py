@@ -12,7 +12,8 @@ class Slime:
         self.position = slime_position
         self.canidates = self.get_adjacent_positions_on_map()
         self.power = random.uniform(power - 1, power + 1)
-        self.growth_speed = random.randint(growth_speed - 1, growth_speed + 1)
+        self.growth_speed = round(
+            random.uniform(growth_speed - 1, growth_speed + 1))
         self.marked_for_deletion = False
         self.world_grid = world_grid
 
@@ -42,11 +43,20 @@ class Slime:
         x, y = position
         return self.world_grid[y][x].slime
 
+    def does_tile_have_fruit(self, position):
+        x, y = position
+        return self.world_grid[y][x].has_fruit
+
     def select_tile_to_grow_to(self):
         random.shuffle(self.canidates)
         new_tile_type = None
 
         for canidate_tile_pos in self.canidates:
+
+            if self.does_tile_have_fruit(canidate_tile_pos):
+                new_tile_type = 'fruit'
+                return canidate_tile_pos, new_tile_type
+
             if not self.does_tile_have_slime_already(canidate_tile_pos):
                 new_tile_type = 'empty'
                 return canidate_tile_pos, new_tile_type

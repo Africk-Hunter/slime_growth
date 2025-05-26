@@ -24,7 +24,9 @@ class RenderHelpers:
     if tile.has_slime:
       color = tile.slime.color
 
-    # Convert to integers to avoid gaps between tiles
+    if tile.has_fruit:
+      color = (255, 255, 255)
+
     x = int(tile.x * self.tile_width)
     y = int(tile.y * self.tile_height)
     width = int((tile.x + 1) * self.tile_width) - x
