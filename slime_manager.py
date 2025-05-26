@@ -22,7 +22,7 @@ class SlimeManager():
             self.create_new_colony()
 
         for colony in self.colony_list:
-            colony.create_initial_slime()
+            colony.factory.create_initial_slime()
 
     def call_update(self, time):
         winner = None

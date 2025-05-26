@@ -48,3 +48,23 @@ class RenderHelpers:
     text_rect.center = self.screen_width / 2, self.screen_height / 2
 
     self.screen.blit(text, text_rect)
+
+  def render_play_again_button(self):
+    font = pygame.font.Font('freesansbold.ttf', 24)
+    text = font.render('Play Again', True, (0, 0, 0))
+    text_rect = text.get_rect()
+    text_rect.center = (self.screen_width / 2, self.screen_height / 2 + 60)
+
+    padding_x, padding_y = 20, 10
+    button_rect = pygame.Rect(text_rect.left - padding_x,
+                              text_rect.top - padding_y,
+                              text_rect.width + padding_x * 2,
+                              text_rect.height + padding_y * 2)
+
+    pygame.draw.rect(self.screen, (255, 255, 255),
+                     button_rect,
+                     border_radius=12)
+
+    self.screen.blit(text, text_rect)
+
+    return button_rect

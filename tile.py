@@ -1,6 +1,3 @@
-from slime import Slime
-
-
 class Tile:
 
     def __init__(self, x_location, y_location):
